@@ -19,14 +19,12 @@ jobs:
       - name: Start local Hardhat network
         run: |
           cd ../net-emissions-token-network/
-          npm install npm@latest -g
-          npm install
+          npm ci
           npx hardhat node --show-accounts &
       - name: Install server dependencies
         run: |
           cd typescript_app/
-          npm install npm@6.4.1 -g
-          npm install
+          npm ci
       - name: Build utility-emissions-channel project
         run: |
           cd docker-compose-setup/
