@@ -1,0 +1,40 @@
+name: End-to-end tests
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./utility-emissions-channel
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '12.15.0'
+      - name: Start local Hardhat network
+        run: |
+          cd ../net-emissions-token-network/
+          npm install npm@latest -g
+          npm install
+          npx hardhat node --show-accounts &
+      - name: Install server dependencies
+        run: |
+          cd typescript_app/
+          npm install npm@6.4.1 -g
+          npm install
+      - name: Build utility-emissions-channel project
+        run: |
+          cd docker-compose-setup/
+          sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+          sudo chmod +x /usr/local/bin/docker-compose
+          ./bootstrap.sh  2.2.1 1.4.9 -d -s
+          sudo ./start.sh
+      - name: Run tests
+        run: |
+          cd typescript_app/
+          npm run test
