@@ -19,9 +19,15 @@ jobs:
       - name: Start local Hardhat network
         run: |
           cd ../net-emissions-token-network/
-          npm i -g npm@latest
+          npm i -g npm@7.24.1
           npm ci
           npx hardhat node --show-accounts &
+      - name: Download Fabric binaries and Docker compose
+        run: |
+          cd docker-compose-setup/
+          ./bootstrap.sh  2.2.1 1.4.9 -d -s
+          sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+          sudo chmod +x /usr/local/bin/docker-compose
       - name: Install server dependencies
         run: |
           cd typescript_app/
@@ -29,9 +35,6 @@ jobs:
       - name: Build utility-emissions-channel project
         run: |
           cd docker-compose-setup/
-          sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-          sudo chmod +x /usr/local/bin/docker-compose
-          ./bootstrap.sh  2.2.1 1.4.9 -d -s
           sudo ./start.sh
       - name: Run tests
         run: |
