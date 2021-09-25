@@ -28,15 +28,10 @@ jobs:
           npm i -g npm@7.24.1
           npm ci
           echo "n" | npx hardhat node --show-accounts &
-      - name: Install server dependencies
-        run: |
-          cd typescript_app/
-          npm ci
       - name: Build utility-emissions-channel project
         run: |
           cd docker-compose-setup/
-          rm -rf ../typescript_app/node_modules/
-          ./start.sh
+          ./start.sh local
       - name: Run tests
         run: |
           cd typescript_app/
