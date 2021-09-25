@@ -19,6 +19,7 @@ jobs:
       - name: Start local Hardhat network
         run: |
           cd ../net-emissions-token-network/
+          npm i -g npm@latest
           npm ci
           npx hardhat node --show-accounts &
       - name: Install server dependencies
@@ -31,8 +32,15 @@ jobs:
           sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
           sudo chmod +x /usr/local/bin/docker-compose
           ./bootstrap.sh  2.2.1 1.4.9 -d -s
-          sudo ./start.sh
+          sudo ./start.sh &
       - name: Run tests
         run: |
+          printf "Waiting for server to start on port 9000"
+          until nc -z localhost 9000 2>/dev/null; do
+              printf '.'
+              sleep 10
+          done
+          echo "API started"
           cd typescript_app/
+          npm ci
           npm run test
