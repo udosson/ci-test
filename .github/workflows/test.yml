@@ -35,7 +35,7 @@ jobs:
       - name: Build utility-emissions-channel project
         run: |
           cd docker-compose-setup/
-          sudo ./start.sh
+          ./start.sh
       - name: Run tests
         run: |
           cd typescript_app/
