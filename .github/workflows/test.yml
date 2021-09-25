@@ -27,7 +27,7 @@ jobs:
           cd ../net-emissions-token-network/
           npm i -g npm@7.24.1
           npm ci
-          echo "n" | npx hardhat node --show-accounts
+          echo "n" | npx hardhat node --show-accounts &
       - name: Install server dependencies
         run: |
           cd typescript_app/
