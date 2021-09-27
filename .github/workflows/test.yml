@@ -31,9 +31,9 @@ jobs:
       - name: Build utility-emissions-channel project
         run: |
           cd docker-compose-setup/
-          ./start.sh
+          ./start.sh &
       - name: Run tests
         run: |
+          sleep 240
           cd typescript_app/
-          npm ci
           npm run test
