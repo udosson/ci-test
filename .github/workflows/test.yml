@@ -30,12 +30,10 @@ jobs:
       - name: Build utility-emissions-channel project
         run: |
           cd docker-compose-setup/
-          touch output.log
-          ./start.sh &> output.log &
+          ./start.sh &
       - name: Run tests
         run: |
           sleep 240
           docker ps -a
-          cat output.log
           cd typescript_app/
           npm run test
