@@ -16,9 +16,8 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: '12.15.0'
-      - name: Download Fabric binaries and Docker compose
+      - name: Download Fabric binaries
         run: |
-          sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
           sudo chmod +x /usr/local/bin/docker-compose
           cd docker-compose-setup/
           ./bootstrap.sh  2.2.1 1.4.9 -d -s
