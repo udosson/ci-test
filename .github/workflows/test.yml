@@ -34,7 +34,7 @@ jobs:
           127.0.0.1       auditor2.carbonAccounting.com
           127.0.0.1       peer1.auditor1.carbonAccounting.com
           127.0.0.1       peer1.auditor2.carbonAccounting.com
-          127.0.0.1       peer1.auditor1.carbonAccounting.com" >> sudo tee -a /etc/hosts
+          127.0.0.1       peer1.auditor1.carbonAccounting.com" | sudo tee -a /etc/hosts
           ./start.sh &
       - name: Run tests
         run: |
