@@ -42,3 +42,4 @@ jobs:
           docker ps -a
           cd typescript_app/
           npm run test
+          echo "tmp"
